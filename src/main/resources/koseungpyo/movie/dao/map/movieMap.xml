@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mynatis.org/DTD Mapper 3.0//EN'
+	'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+<mapper namespace='koseungpyo.movie.dao.map.MovieMap'>
+	<select id='selectMovies' resultType='movie'>
+		select *
+		from movies
+		order by movie_num
+	</select>
+	
+	<select id='selectMovie' resultType='movie'>
+		select *
+		from movies
+		where movie_num = #{movieNum}
+	</select>
+	
+	<insert id='insertMovie'>
+		insert into movies
+		values (movie_number_seq.netval, #{title}, #{openingDate}, #{genre}, #{directorName},
+				#{mainActorName}, #{posterFileName}, #{audienceNum}, #{topic})
+	</insert>
+	
+	<update id='updateMovie'>
+		update movies
+		set title = #{title}, opening_date = #{openingDate}, genre = #{genre}, director_name = #{directorName},
+					main_actor_name = #{mainActorName}, poster_file_name = #{posterFileName},
+					audience_num = #{audienceNum}, topic = #{topic}
+		where movie_num = #{movieNum} 
+	</update>
+	
+	<delete id='deleteMovie'>
+		delete movies
+		where movie_num = #{movieNum}
+	</delete>
+</mapper>
