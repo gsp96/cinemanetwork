@@ -1,0 +1,62 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: cinemanetwork-backend
+
+  datasource:
+    url: jdbc:h2:mem:cinemanetwork;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+    open-in-view: false
+
+jwt:
+  # Base64 encoded 256-bit+ secret key
+  secret: dGhpc2lzYXZlcnlzZWNyZXRrZXlmb3JjaW5lbWFuZXR3b3Jrand0YXV0aGVudGljYXRpb25zZWNyZXRrZXkyMDI2
+  access-token-expiration-ms: 86400000 # 24시간
+  refresh-token-expiration-ms: 604800000 # 7일
+
+# 외부 영화 API 설정 (KOBIS, TMDB)
+external-api:
+  kobis:
+    # 기본 발급 가능한 공공데이터 API 키 또는 데모용 키
+    key: ${KOBIS_API_KEY:f5eef3421c602c6cb7ea224104795888}
+    base-url: http://www.kobis.or.kr/kobisopenapi/webservice/rest
+  tmdb:
+    # 데모/개발용 API 키 (환경변수 없을 시 기본 적용)
+    key: ${TMDB_API_KEY:4b918a228399589d81d45be326588661}
+    base-url: https://api.themoviedb.org/3
+    image-base-url: https://image.tmdb.org/t/p
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+logging:
+  level:
+    com.cinemanetwork: DEBUG
+    org.springframework.security: INFO
